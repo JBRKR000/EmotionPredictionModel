@@ -2,6 +2,9 @@
 
 This project is a university assignment aimed at predicting emotions from text data using machine learning techniques.
 
+## Notebook version
+<script src="https://gist.github.com/JBRKR000/e9d2cff6ebb8ab5ca59cc5caeaa50ca3.js"></script>
+
 ## Dataset
 The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/emotions). It contains a collection of English text samples labeled with different emotions.
 
@@ -37,3 +40,4 @@ The Emotions Prediction Model project focuses on developing a machine learning m
 
 ## License
 MIT License
+
