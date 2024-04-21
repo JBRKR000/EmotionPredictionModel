@@ -35,13 +35,13 @@ class Model:
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
 
-    def naive_bayes(self, alpha=0.01, fit_prior=True, class_prior=None):
+    def naive_bayes(self):
         data = pd.read_csv(self.data_path)
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
 
-        model = MultinomialNB(alpha=alpha, fit_prior=fit_prior, class_prior=class_prior)
+        model = MultinomialNB(force_alpha=False, alpha=0, fit_prior=False)
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
