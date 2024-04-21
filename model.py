@@ -13,11 +13,17 @@ class Model:
         self.data_path = data_path
         self.vectorizer = TfidfVectorizer(max_features=5000)
 
-    def linear_SVC(self, C=0.1, loss='squared_hinge', max_iter=2000, penalty='l2', dual=False, tol=1e-2):
+    def linear_SVC(self):
         data = pd.read_csv(self.data_path)
+
+        # Split the data to training / test
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
+
+        # Vectorize the text data
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
+
+        # Set hyperparameters
         model_params = {
             'C': 0.1,
             'loss': 'hinge',
@@ -26,6 +32,8 @@ class Model:
             'dual': True,
             'tol': 1e-4
         }
+
+        # Initialize and train the model
         model = LinearSVC(**model_params)
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
@@ -33,9 +41,15 @@ class Model:
 
     def logistic_regression(self):
         data = pd.read_csv(self.data_path)
+
+        # Split the data to training / test
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
+
+        # Vectorize the text data
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
+
+        # Set hyperparameters
         model_params = {
             'C': 0.1,
             'penalty': 'l1',
@@ -43,6 +57,8 @@ class Model:
             'solver': 'saga',
             'random_state': 1
         }
+
+        # Initialize and train the model
         model = LogisticRegression(**model_params)
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
@@ -50,11 +66,18 @@ class Model:
 
     def naive_bayes(self):
         data = pd.read_csv(self.data_path)
+
+        # Split the data to training / test
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
+
+        # Vectorize the text data
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
 
+        # Set hyperparameters
         model = MultinomialNB(force_alpha=False, alpha=0, fit_prior=False)
+
+        # Initialize and train the model
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
