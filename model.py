@@ -18,8 +18,15 @@ class Model:
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
-
-        model = LinearSVC(C=C, loss=loss, max_iter=max_iter, penalty=penalty, dual=dual, tol=tol)
+        model_params = {
+            'C': 0.1,
+            'loss': 'hinge',
+            'max_iter': 5000,
+            'penalty': 'l2',
+            'dual': True,
+            'tol': 1e-4
+        }
+        model = LinearSVC(**model_params)
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
