@@ -36,4 +36,4 @@ The Emotions Prediction Model project focuses on developing a machine learning m
 - Jakub Kozimor
 
 ## License
-Copyright © 2024 Politechnika Bydgoska im. Jana i Jędrzeja Śniadeckich. All rights reserved.
+MIT License
