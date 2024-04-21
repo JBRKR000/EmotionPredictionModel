@@ -24,13 +24,19 @@ class Model:
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
 
-    def logistic_regression(self, C=0.001, penalty=None, max_iter=5000, random_state=1):
+    def logistic_regression(self):
         data = pd.read_csv(self.data_path)
         X_train, X_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.2, random_state=42)
         X_train_vectorized = self.vectorizer.fit_transform(X_train)
         X_test_vectorized = self.vectorizer.transform(X_test)
-
-        model = LogisticRegression(C=C, penalty=penalty, max_iter=max_iter, random_state=random_state)
+        model_params = {
+            'C': 0.1,
+            'penalty': 'l1',
+            'max_iter': 10000,
+            'solver': 'saga',
+            'random_state': 1
+        }
+        model = LogisticRegression(**model_params)
         model.fit(X_train_vectorized, y_train)
         self.evaluate_model(model, X_test_vectorized, y_test)
         return model, self.vectorizer
