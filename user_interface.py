@@ -1,6 +1,6 @@
 from PyQt5.QtCore import pyqtSignal, QThread
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QProgressBar
-from model import linear_SVC, logistic_regression_classifier, naive_bayes, predict_emotion
+from model import Model
 
 emotion_mapping = {
     0: 'Sadness',
@@ -11,24 +11,33 @@ emotion_mapping = {
     5: 'Surprise'
 }
 
+EmotionClassifier = Model()
+chosen_model = None
+
+
 class ModelLearningThread(QThread):
     progress_changed = pyqtSignal(int)
+
     def __init__(self, window, model_func):
         super().__init__()
         self.window = window
         self.model_func = model_func
 
     def run(self):
-        self.progress_changed.emit(50)
-        self.window.model, self.window.vectorizer = self.model_func()
-        self.progress_changed.emit(100)
+        try:
+            self.progress_changed.emit(50)
+            self.window.model, self.window.vectorizer = self.model_func()
+            self.progress_changed.emit(100)
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"An error occurred: {str(e)}")
+
 
 class UserInterface(QWidget):
     learning_finished = pyqtSignal()
 
     def __init__(self):
         super().__init__()
-        self.model = None
+        self.model = EmotionClassifier
         self.vectorizer = None
         self.initUI()
         self.learning_finished.connect(self.display_learning_finished)
@@ -47,7 +56,7 @@ class UserInterface(QWidget):
 
         self.model_combobox = QComboBox()
         self.model_combobox.addItem("linear_SVC")
-        self.model_combobox.addItem("logistic_regression_classifier")
+        self.model_combobox.addItem("logistic_regression")
         self.model_combobox.addItem("naive_bayes")
         layout.addWidget(self.model_combobox)
 
@@ -77,13 +86,18 @@ class UserInterface(QWidget):
 
     def learn_model(self):
         try:
+            global chosen_model
             selected_model = self.model_combobox.currentText()
+
             if selected_model == "linear_SVC":
-                model_func = linear_SVC
-            elif selected_model == "logistic_regression_classifier":
-                model_func = logistic_regression_classifier
+                chosen_model = EmotionClassifier.linear_SVC
+                model_func = EmotionClassifier.linear_SVC
+            elif selected_model == "logistic_regression":
+                chosen_model = EmotionClassifier.logistic_regression
+                model_func = EmotionClassifier.logistic_regression
             elif selected_model == "naive_bayes":
-                model_func = naive_bayes
+                chosen_model = EmotionClassifier.naive_bayes
+                model_func = EmotionClassifier.naive_bayes
             else:
                 return
 
@@ -128,6 +142,6 @@ class UserInterface(QWidget):
 
         input_text = self.text_edit.toPlainText()
         print("Predicting from input text:", input_text)
-        predicted_emotion = predict_emotion(input_text, self.model, self.vectorizer)
+        predicted_emotion = EmotionClassifier.predict_emotion(input_text, self.model)
         mapped_emotion = emotion_mapping[predicted_emotion]
         self.emotion_display.setText(f"Emotion: {mapped_emotion}")
