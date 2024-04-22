@@ -19,8 +19,8 @@ The Emotions Prediction Model project focuses on developing a machine learning m
 
 ## Technologies Used
 - Python
-- Machine Learning (Scikit-learn)
-- Natural Language Processing (NLTK)
+- Scikit-learn
+- Pandas
 - PyQt5 (for the GUI)
 
 ## How to Use
