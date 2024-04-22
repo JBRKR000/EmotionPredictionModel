@@ -24,12 +24,30 @@ The Emotions Prediction Model project focuses on developing a machine learning m
 - PyQt5 (for the GUI)
 
 ## How to Use
-1. Clone the repository to your local machine.
-2. Install the required dependencies listed in the `requirements.txt` file.
-3. Download and insert to your main program folder `emotions-dataset.csv` file.
-4. Run the `main.py` file to launch the GUI application.
-5. Enter the text input in the provided text field.
-6. Click on the "Predict" button to see the predicted emotion.
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/wiktorlewandowski2003/3dbe22591f8ff9b270360376f86bd92b/emotions-prediction-model.ipynb)
+[![Open In Gist](https://img.shields.io/badge/Open%20in%20Gist-black?logo=github)](https://gist.github.com/wiktorlewandowski2003/3dbe22591f8ff9b270360376f86bd92b#file-emotions-prediction-model-ipynb)
+
+Or check out simple GUI version:
+1. **Clone the repository to your local machine.**
+    ```bash
+    git clone https://github.com/JBRKR000/EmotionPredictionModel.git
+    ```
+
+2. **Install the required dependencies listed in the [`requirements.txt`](link_do_requirements.txt) file.**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. **Download and insert the `emotions-dataset.csv` file into your main program folder.**
+
+4. **Run the `main.py` file to launch the GUI application.**
+    ```bash
+    python main.py
+    ```
+    
+5. **Enter the text input in the provided text field.**
+
+6. **Click on the "Predict" button to see the predicted emotion.**
 
 ## Contributors
 - Wiktor Lewandowski
