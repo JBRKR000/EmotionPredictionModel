@@ -24,7 +24,7 @@ The Emotions Prediction Model project focuses on developing a machine learning m
 - PyQt5 (for the GUI)
 
 ## How to Use
- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/wiktorlewandowski2003/3dbe22591f8ff9b270360376f86bd92b/emotions-prediction-model.ipynb)
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/gist/wiktorlewandowski9/3dbe22591f8ff9b270360376f86bd92b/emotions-prediction-model.ipynb)
 [![Open In Gist](https://img.shields.io/badge/Open%20in%20Gist-black?logo=github)](https://gist.github.com/wiktorlewandowski9/3dbe22591f8ff9b270360376f86bd92b)
 
 Or check out simple GUI version:
